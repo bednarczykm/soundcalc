@@ -20,7 +20,7 @@ if [ ! -d "/opt/$APP/.git" ]; then
 fi
 chown -R "$APP:$APP" "/opt/$APP"
 
-sudo -u "$APP" -H bash -c "cd /opt/$APP/nextjs_space && npm ci && npm run build"
+sudo -u "$APP" -H bash -c "cd /opt/$APP/nextjs_space && npm install && npm run build"
 
 cat > "/etc/systemd/system/$APP.service" <<SERVICE
 [Unit]
