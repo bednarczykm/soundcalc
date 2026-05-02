@@ -680,7 +680,7 @@ export default function StereoCalculator() {
         } else if (parsed.setups && Array.isArray(parsed.setups)) {
           importedSetups = parsed.setups
         } else {
-          throw new Error("Invalid file format")
+          throw new Error("Nieprawidłowy format pliku")
         }
 
         // Validate and merge setups (avoid duplicates by id)
@@ -777,19 +777,19 @@ export default function StereoCalculator() {
 
   return (
     <div className="mx-auto max-w-7xl">
-      <h1 className="mb-6 text-center text-3xl font-bold text-foreground">Stereo Setup Calculator</h1>
+      <h1 className="mb-6 text-center text-3xl font-bold text-foreground">Kalkulator ustawień stereo</h1>
 
       <div className="grid gap-6 xl:grid-cols-3">
         {/* Left Panel - Inputs */}
         <Card className="xl:col-span-1">
           <CardHeader>
-            <CardTitle>Room & Speaker Settings</CardTitle>
+            <CardTitle>Ustawienia pokoju i głośników</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             {/* Room dimensions */}
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="space-y-2">
-                <Label htmlFor="roomWidth">Room Width (m)</Label>
+                <Label htmlFor="roomWidth">Szerokość pokoju (m)</Label>
                 <Input
                   id="roomWidth"
                   type="number"
@@ -801,7 +801,7 @@ export default function StereoCalculator() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="roomLength">Room Length (m)</Label>
+                <Label htmlFor="roomLength">Długość pokoju (m)</Label>
                 <Input
                   id="roomLength"
                   type="number"
@@ -817,7 +817,7 @@ export default function StereoCalculator() {
             {/* Speaker physical size */}
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="space-y-2">
-                <Label htmlFor="speakerWidth">Speaker Width (m)</Label>
+                <Label htmlFor="speakerWidth">Szerokość głośnika (m)</Label>
                 <Input
                   id="speakerWidth"
                   type="number"
@@ -827,7 +827,7 @@ export default function StereoCalculator() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="speakerDepth">Speaker Depth (m)</Label>
+                <Label htmlFor="speakerDepth">Głębokość głośnika (m)</Label>
                 <Input
                   id="speakerDepth"
                   type="number"
@@ -840,7 +840,7 @@ export default function StereoCalculator() {
 
             {/* Speaker positions */}
             <div className="space-y-2">
-              <Label htmlFor="sideWall">Speaker Distance from Side Wall (m)</Label>
+              <Label htmlFor="sideWall">Odległość głośnika od ściany bocznej (m)</Label>
               <Input
                 id="sideWall"
                 type="number"
@@ -848,11 +848,11 @@ export default function StereoCalculator() {
                 value={sideWallDistance.toFixed(2)}
                 onChange={(e) => handleSideWallDistanceChange(Number.parseFloat(e.target.value) || 0)}
               />
-              <p className="text-xs text-muted-foreground">Distance from side wall to speaker centre</p>
+              <p className="text-xs text-muted-foreground">Odległość od ściany bocznej do środka głośnika</p>
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="frontWall">Speaker Distance from Front Wall (to Front Baffle) (m)</Label>
+              <Label htmlFor="frontWall">Odległość głośnika od ściany frontowej (do przedniej płyty) (m)</Label>
               <Input
                 id="frontWall"
                 type="text"
@@ -864,11 +864,11 @@ export default function StereoCalculator() {
                 }}
                 onBlur={() => setIsEditingFrontWall(false)}
               />
-              <p className="text-xs text-muted-foreground">Distance from front wall to speaker front baffle</p>
+              <p className="text-xs text-muted-foreground">Odległość od ściany frontowej do przedniej płyty głośnika</p>
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="targetAngle">Target Listening Angle (°)</Label>
+              <Label htmlFor="targetAngle">Docelowy kąt odsłuchu (°)</Label>
               <Input
                 id="targetAngle"
                 type="number"
@@ -889,7 +889,7 @@ export default function StereoCalculator() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="minBack">Min. Back Wall Distance (m)</Label>
+              <Label htmlFor="minBack">Min. odległość od ściany tylnej (m)</Label>
               <Input
                 id="minBack"
                 type="number"
@@ -1028,16 +1028,16 @@ export default function StereoCalculator() {
 
             {/* Interaction options */}
             <div className="space-y-3 rounded-lg border p-4">
-              <p className="text-sm font-medium">Interaction Options</p>
+              <p className="text-sm font-medium">Opcje interakcji</p>
               <div className="flex items-center justify-between">
                 <Label htmlFor="lockSymmetry" className="text-sm">
-                  Lock symmetry
+                  Blokuj symetrię
                 </Label>
                 <Switch id="lockSymmetry" checked={lockSymmetry} onCheckedChange={setLockSymmetry} />
               </div>
               <div className="flex items-center justify-between">
                 <Label htmlFor="lockAngle" className="text-sm">
-                  Lock listening angle
+                  Blokuj kąt odsłuchu
                 </Label>
                 <Switch id="lockAngle" checked={lockListeningAngle} onCheckedChange={setLockListeningAngle} />
               </div>
@@ -1046,7 +1046,7 @@ export default function StereoCalculator() {
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
                     <Label htmlFor="toeInAngle" className="text-sm">
-                      Toe-in angle (per speaker)
+                      Kąt toe-in (na głośnik)
                     </Label>
                     <span className="text-sm font-medium">{toeInAngle}°</span>
                   </div>
@@ -1065,7 +1065,7 @@ export default function StereoCalculator() {
                 </div>
                 <div className="flex items-center justify-between">
                   <Label htmlFor="lockToeSymmetry" className="text-sm">
-                    Lock toe-in symmetry
+                    Blokuj symetrię toe-in
                   </Label>
                   <Switch id="lockToeSymmetry" checked={lockToeSymmetry} onCheckedChange={setLockToeSymmetry} />
                 </div>
@@ -1074,16 +1074,16 @@ export default function StereoCalculator() {
 
             {/* View options */}
             <div className="space-y-3 rounded-lg border p-4">
-              <p className="text-sm font-medium">View Options</p>
+              <p className="text-sm font-medium">Opcje widoku</p>
               <div className="flex items-center justify-between">
                 <Label htmlFor="showDimensions" className="text-sm">
-                  Show dimensions
+                  Pokaż wymiary
                 </Label>
                 <Switch id="showDimensions" checked={showDimensions} onCheckedChange={setShowDimensions} />
               </div>
               <div className="flex items-center justify-between">
                 <Label htmlFor="acousticTreatment" className="text-sm">
-                  Show acoustic treatment
+                  Pokaż adaptację akustyczną
                 </Label>
                 <Switch
                   id="acousticTreatment"
@@ -1093,7 +1093,7 @@ export default function StereoCalculator() {
               </div>
               <div className="flex items-center justify-between">
                 <Label htmlFor="showAcousticCentre" className="text-sm">
-                  Show acoustic centre
+                  Pokaż środek akustyczny
                 </Label>
                 <Switch id="showAcousticCentre" checked={showAcousticCentre} onCheckedChange={setShowAcousticCentre} />
               </div>
@@ -1111,7 +1111,7 @@ export default function StereoCalculator() {
 
             {/* Presets */}
             <div className="space-y-2">
-              <p className="text-sm font-medium">Presets</p>
+              <p className="text-sm font-medium">Presety</p>
               <div className="flex flex-wrap gap-2">
                 <Button
                   variant={activePreset[0] === "golden" ? "default" : "outline"}
@@ -1119,18 +1119,18 @@ export default function StereoCalculator() {
                   onClick={toggleGoldenRatio}
                 >
                   <Ruler className="mr-1 h-4 w-4" />
-                  Golden Ratio
+                  Złoty podział
                 </Button>
                 <Button
                   variant={activePreset[0] === "thirds" ? "default" : "outline"}
                   size="sm"
                   onClick={toggleThirdRule}
                 >
-                  1/3 Rule
+                  Reguła 1/3
                 </Button>
               </div>
               {activePreset[0] && (
-                <p className="text-xs text-muted-foreground">Click again to restore previous positions</p>
+                <p className="text-xs text-muted-foreground">Kliknij ponownie, aby przywrócić poprzednie pozycje</p>
               )}
             </div>
 
@@ -1138,11 +1138,11 @@ export default function StereoCalculator() {
             <div className="space-y-2">
               <Button variant="outline" size="sm" onClick={resetToDefaults}>
                 <RotateCcw className="mr-1 h-4 w-4" />
-                Reset
+                Resetuj
               </Button>
               <Button variant="outline" size="sm" onClick={copySetupToClipboard}>
                 <Copy className="mr-1 h-4 w-4" />
-                Copy JSON
+                Kopiuj JSON
               </Button>
             </div>
           </CardContent>
@@ -1151,8 +1151,8 @@ export default function StereoCalculator() {
         {/* Middle Panel - Diagram */}
         <Card className="xl:col-span-1">
           <CardHeader>
-            <CardTitle>Room Diagram (Top View)</CardTitle>
-            <p className="text-sm text-muted-foreground">Drag speakers and listener to adjust positions</p>
+            <CardTitle>Diagram pokoju (widok z góry)</CardTitle>
+            <p className="text-sm text-muted-foreground">Przeciągnij głośniki i słuchacza, aby dostosować pozycje</p>
           </CardHeader>
           <CardContent>
             <div className="flex flex-col gap-4">
@@ -1186,35 +1186,35 @@ export default function StereoCalculator() {
         <div className="space-y-6 xl:col-span-1">
           <Card>
             <CardHeader>
-              <CardTitle>Calculated Results</CardTitle>
+              <CardTitle>Wyniki obliczeń</CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
               <div className="grid gap-3 sm:grid-cols-2">
-                <ResultItem label="Speaker Spacing (C-C)" value={calculations.speakerSpacing} unit="m" />
-                <ResultItem label="Speaker Spacing (Edge)" value={calculations.speakerEdgeToEdge} unit="m" />
-                <ResultItem label="Listener from Front" value={calculations.listenerFromFront} unit="m" />
+                <ResultItem label="Rozstaw głośników (C-C)" value={calculations.speakerSpacing} unit="m" />
+                <ResultItem label="Rozstaw głośników (krawędź)" value={calculations.speakerEdgeToEdge} unit="m" />
+                <ResultItem label="Słuchacz od frontu" value={calculations.listenerFromFront} unit="m" />
                 <ResultItem
-                  label="Listener from Back"
+                  label="Słuchacz od tyłu"
                   value={calculations.listenerFromBack}
                   unit="m"
                   highlight={isTooCloseToBack}
                 />
-                <ResultItem label="Listener–Speaker Dist." value={calculations.listenerSpeakerDistance} unit="m" />
-                <ResultItem label="Actual Angle" value={calculations.actualAngle} unit="°" />
+                <ResultItem label="Odległość słuchacz–głośnik" value={calculations.listenerSpeakerDistance} unit="m" />
+                <ResultItem label="Rzeczywisty kąt" value={calculations.actualAngle} unit="°" />
               </div>
 
               {isTooCloseToBack ? (
                 <Alert variant="destructive" className="mt-4">
                   <AlertTriangle className="h-4 w-4" />
                   <AlertDescription>
-                    Listener too close to back wall ({calculations.listenerFromBack.toFixed(2)} m).
+                    Słuchacz zbyt blisko ściany tylnej ({calculations.listenerFromBack.toFixed(2)} m).
                   </AlertDescription>
                 </Alert>
               ) : (
                 <Alert className="mt-4 border-green-500/50 bg-green-500/10 text-green-700 dark:text-green-400">
                   <CheckCircle2 className="h-4 w-4" />
                   <AlertDescription>
-                    Position OK ({calculations.listenerFromBack.toFixed(2)} m from back wall).
+                    Pozycja OK ({calculations.listenerFromBack.toFixed(2)} m od ściany tylnej).
                   </AlertDescription>
                 </Alert>
               )}

@@ -8,9 +8,8 @@ const _geist = Geist({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Stereo Setup Calculator",
-  description: "Calculate ideal stereo speaker placement and listening position for your room",
-  generator: "v0.app",
+  title: "Kalkulator ustawień stereo",
+  description: "Oblicz idealne ustawienie głośników stereo i pozycję odsłuchową w Twoim pokoju",
   icons: {
     icon: [
       {
@@ -36,7 +35,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang="pl">
       <body className={`font-sans antialiased`}>
         {children}
         <Analytics />

@@ -1120,7 +1120,7 @@ export function RoomDiagram({
           <>
             <div className="flex items-center gap-2">
               <div className="w-6 h-0.5 bg-[#64748b]" />
-              <span className="text-muted-foreground">Front distance</span>
+              <span className="text-muted-foreground">Odległość frontowa</span>
             </div>
             <div className="flex items-center gap-2">
               <div
@@ -1130,7 +1130,7 @@ export function RoomDiagram({
                     "repeating-linear-gradient(90deg, #10b981 0, #10b981 4px, transparent 4px, transparent 7px)",
                 }}
               />
-              <span className="text-muted-foreground">Centre distance</span>
+              <span className="text-muted-foreground">Odległość centralna</span>
             </div>
           </>
         )}
@@ -1147,7 +1147,7 @@ export function RoomDiagram({
                   background: "linear-gradient(135deg, #8b5cf6 50%, transparent 50%)",
                 }}
               />
-              <span className="text-muted-foreground">Bass trap</span>
+              <span className="text-muted-foreground">Pułapka basowa</span>
             </div>
           </>
         )}
