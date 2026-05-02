@@ -39,21 +39,21 @@ export function SpeakerCornerDistances({ leftCorners, rightCorners, toeInAngle }
     <Card>
       <CardHeader className="pb-2">
         <CardTitle className="text-base flex items-center gap-2">
-          Rogi gÅoÅnikÃ³w â Åciana frontowa
-          <span className="text-xs font-normal text-muted-foreground ml-auto">toe-in: {toeInAngle}Â°</span>
+          Rogi głośników → Ściana frontowa
+          <span className="text-xs font-normal text-muted-foreground ml-auto">toe-in: {toeInAngle}°</span>
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
         {/* Left speaker corners */}
         <div>
-          <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">Lewy gÅoÅnik (L)</h4>
+          <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">Lewy głośnik (L)</h4>
           <div className="bg-muted/30 rounded-lg p-3">
-            <DataRow label="LF (lewy-przÃ³d)" value={leftCorners.LF} />
-            <DataRow label="RF (prawy-przÃ³d)" value={leftCorners.RF} />
-            <DataRow label="LR (lewy-tyÅ)" value={leftCorners.LR} />
-            <DataRow label="RR (prawy-tyÅ)" value={leftCorners.RR} />
+            <DataRow label="LF (lewy-przód)" value={leftCorners.LF} />
+            <DataRow label="RF (prawy-przód)" value={leftCorners.RF} />
+            <DataRow label="LR (lewy-tył)" value={leftCorners.LR} />
+            <DataRow label="RR (prawy-tył)" value={leftCorners.RR} />
             <div className="mt-2 pt-2 border-t border-muted">
-              <DataRow label="Î LF â RF" value={leftDelta} highlight />
+              <DataRow label="Δ LF ↔ RF" value={leftDelta} highlight />
             </div>
           </div>
         </div>
@@ -61,15 +61,15 @@ export function SpeakerCornerDistances({ leftCorners, rightCorners, toeInAngle }
         {/* Right speaker corners */}
         <div>
           <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">
-            Prawy gÅoÅnik (R)
+            Prawy głośnik (R)
           </h4>
           <div className="bg-muted/30 rounded-lg p-3">
-            <DataRow label="LF (lewy-przÃ³d)" value={rightCorners.LF} />
-            <DataRow label="RF (prawy-przÃ³d)" value={rightCorners.RF} />
-            <DataRow label="LR (lewy-tyÅ)" value={rightCorners.LR} />
-            <DataRow label="RR (prawy-tyÅ)" value={rightCorners.RR} />
+            <DataRow label="LF (lewy-przód)" value={rightCorners.LF} />
+            <DataRow label="RF (prawy-przód)" value={rightCorners.RF} />
+            <DataRow label="LR (lewy-tył)" value={rightCorners.LR} />
+            <DataRow label="RR (prawy-tył)" value={rightCorners.RR} />
             <div className="mt-2 pt-2 border-t border-muted">
-              <DataRow label="Î LF â RF" value={rightDelta} highlight />
+              <DataRow label="Δ LF ↔ RF" value={rightDelta} highlight />
             </div>
           </div>
         </div>
@@ -77,11 +77,11 @@ export function SpeakerCornerDistances({ leftCorners, rightCorners, toeInAngle }
         {/* Info */}
         <div className="bg-slate-50 border border-slate-200 rounded-lg p-3 text-xs text-slate-600">
           <p>
-            <strong>LF/RF</strong> = przednie rogi gÅoÅnika (lewy/prawy)
+            <strong>LF/RF</strong> = przednie rogi głośnika (lewy/prawy)
             <br />
-            <strong>LR/RR</strong> = tylne rogi gÅoÅnika (lewy/prawy)
+            <strong>LR/RR</strong> = tylne rogi głośnika (lewy/prawy)
             <br />
-            <strong>Î</strong> = rÃ³Å¼nica odlegÅoÅci przednich rogÃ³w od Åciany
+            <strong>Δ</strong> = różnica odległości przednich rogów od ściany
           </p>
         </div>
       </CardContent>
@@ -114,12 +114,12 @@ export function calculateSpeakerCorners(
   // - Speaker "front" (baffle) faces towards front wall (negative Y direction from center)
 
   // Front vector (pointing towards front wall, which is -Y direction, but rotated by toe-in)
-  // At 0Â° toe-in: front points to -Y (towards front wall)
+  // At 0° toe-in: front points to -Y (towards front wall)
   const frontX = Math.sin(angleRad)
   const frontY = -Math.cos(angleRad) // Negative because front faces towards y=0
 
   // Side vector (perpendicular to front, pointing to the right of the speaker when viewed from behind)
-  // This is a 90Â° clockwise rotation of the front vector
+  // This is a 90° clockwise rotation of the front vector
   const sideX = -frontY // = cos(angleRad)
   const sideY = frontX // = sin(angleRad)
 

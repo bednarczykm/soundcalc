@@ -89,30 +89,30 @@ export function GeometrySummary({
       <CardContent className="space-y-4">
         {/* Speaker distances */}
         <div>
-          <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">GÅoÅniki</h4>
+          <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">Głośniki</h4>
           <div className="bg-muted/30 rounded-lg p-3">
-            <DataRow label="Lewy od Åciany (krawÄdÅº)" value={leftEdgeToWall} warning={isLeftSpeakerTooClose} />
-            <DataRow label="Prawy od Åciany (krawÄdÅº)" value={rightEdgeToWall} warning={isRightSpeakerTooClose} />
-            <DataRow label="Od Åciany frontowej (front)" value={speakerFrontToWall} />
+            <DataRow label="Lewy od ściany (krawędź)" value={leftEdgeToWall} warning={isLeftSpeakerTooClose} />
+            <DataRow label="Prawy od ściany (krawędź)" value={rightEdgeToWall} warning={isRightSpeakerTooClose} />
+            <DataRow label="Od ściany frontowej (front)" value={speakerFrontToWall} />
             {showAcousticCentre && (
               <>
-                <DataRow label="Årodek akustyczny od Åciany" value={speakerCentreToWall} highlight />
-                <DataRow label="Offset (front â centre)" value={speakerCentreOffset} highlight />
+                <DataRow label="Środek akustyczny od ściany" value={speakerCentreToWall} highlight />
+                <DataRow label="Offset (front → centre)" value={speakerCentreOffset} highlight />
               </>
             )}
             <DataRow label="Rozstaw C-C" value={speakerSpacing} />
-            <DataRow label="Rozstaw krawÄdÅº-krawÄdÅº" value={speakerEdgeToEdge} />
+            <DataRow label="Rozstaw krawędź-krawędź" value={speakerEdgeToEdge} />
           </div>
         </div>
 
         {/* Listener distances */}
         <div>
-          <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">SÅuchacz</h4>
+          <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">Słuchacz</h4>
           <div className="bg-muted/30 rounded-lg p-3">
-            <DataRow label="Od Åciany frontowej" value={listenerFromFront} />
-            <DataRow label="Od Åciany tylnej" value={listenerFromBack} warning={isTooCloseToBack} />
-            <DataRow label="Do gÅoÅnika" value={listenerSpeakerDistance} />
-            <DataRow label="KÄt odsÅuchu" value={actualAngle.toFixed(1)} unit="Â°" />
+            <DataRow label="Od ściany frontowej" value={listenerFromFront} />
+            <DataRow label="Od ściany tylnej" value={listenerFromBack} warning={isTooCloseToBack} />
+            <DataRow label="Do głośnika" value={listenerSpeakerDistance} />
+            <DataRow label="Kąt odsłuchu" value={actualAngle.toFixed(1)} unit="°" />
           </div>
         </div>
 
@@ -133,7 +133,7 @@ export function GeometrySummary({
               </p>
             </div>
             <div className="rounded-lg bg-blue-100 p-2 text-center">
-              <p className="text-xs text-muted-foreground mb-1">SÅuchacz</p>
+              <p className="text-xs text-muted-foreground mb-1">Słuchacz</p>
               <p className="font-mono text-xs font-semibold">
                 {listener.x.toFixed(2)}, {listener.y.toFixed(2)}
               </p>
@@ -146,12 +146,12 @@ export function GeometrySummary({
           <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 text-sm">
             <div className="flex items-center gap-2 text-amber-800 font-medium mb-1">
               <AlertTriangle className="h-4 w-4" />
-              OstrzeÅ¼enia
+              Ostrzeżenia
             </div>
             <ul className="text-amber-700 text-xs space-y-1 ml-6 list-disc">
-              {isTooCloseToBack && <li>SÅuchacz zbyt blisko Åciany tylnej (min. {minBackWallDistance}m)</li>}
-              {isLeftSpeakerTooClose && <li>Lewy gÅoÅnik zbyt blisko Åciany (min. 0.2m)</li>}
-              {isRightSpeakerTooClose && <li>Prawy gÅoÅnik zbyt blisko Åciany (min. 0.2m)</li>}
+              {isTooCloseToBack && <li>Słuchacz zbyt blisko ściany tylnej (min. {minBackWallDistance}m)</li>}
+              {isLeftSpeakerTooClose && <li>Lewy głośnik zbyt blisko ściany (min. 0.2m)</li>}
+              {isRightSpeakerTooClose && <li>Prawy głośnik zbyt blisko ściany (min. 0.2m)</li>}
             </ul>
           </div>
         )}

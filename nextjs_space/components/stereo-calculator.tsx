@@ -654,7 +654,7 @@ export default function StereoCalculator() {
     const blob = new Blob([JSON.stringify(dataToExport, null, 2)], { type: "application/json" })
     const url = URL.createObjectURL(blob)
     // Sanitize filename - replace invalid characters
-    const sanitizedName = setup.name.replace(/[^a-zA-Z0-9ÄÄÄÅÅÃ³ÅÅºÅ¼ÄÄÄÅÅÃÅÅ¹Å»\s\-_]/g, "").replace(/\s+/g, "-")
+    const sanitizedName = setup.name.replace(/[^a-zA-Z0-9ąćęłńóśźżĄĆĘŁŃÓŚŹŻ\s\-_]/g, "").replace(/\s+/g, "-")
     const a = document.createElement("a")
     a.download = `${sanitizedName}.json`
     document.body.appendChild(a)
@@ -689,15 +689,15 @@ export default function StereoCalculator() {
 
         if (newSetups.length > 0) {
           setSavedSetups((prev) => [...prev, ...newSetups])
-          alert(`Zaimportowano ${newSetups.length} nowych ustawieÅ.`)
+          alert(`Zaimportowano ${newSetups.length} nowych ustawień.`)
         } else if (importedSetups.length > 0) {
-          alert("Wszystkie ustawienia z pliku juÅ¼ istniejÄ.")
+          alert("Wszystkie ustawienia z pliku już istnieją.")
         } else {
-          alert("Plik nie zawiera Å¼adnych ustawieÅ.")
+          alert("Plik nie zawiera żadnych ustawień.")
         }
       } catch (err) {
         console.error("Failed to import setups:", err)
-        alert("BÅÄd importu: nieprawidÅowy format pliku.")
+        alert("Błąd importu: nieprawidłowy format pliku.")
       }
     }
     reader.readAsText(file)
@@ -707,7 +707,7 @@ export default function StereoCalculator() {
 
   const toeInInfo = useMemo(() => {
     if (toeInAngle === 0) {
-      return { status: "straight" as const, message: "GÅoÅniki skierowane prosto (0Â° toe-in)" }
+      return { status: "straight" as const, message: "Głośniki skierowane prosto (0° toe-in)" }
     }
 
     const theta = (toeInAngle * Math.PI) / 180
@@ -742,37 +742,37 @@ export default function StereoCalculator() {
       return {
         status: "inFront" as const,
         crossY: yCross,
-        message: `Osie krzyÅ¼ujÄ siÄ PRZED sÅuchaczem (~${yCross.toFixed(2)} m od frontu)`,
+        message: `Osie krzyżują się PRZED słuchaczem (~${yCross.toFixed(2)} m od frontu)`,
       }
     } else if (diff > 0.2) {
       return {
         status: "behind" as const,
         crossY: yCross,
-        message: `Osie krzyÅ¼ujÄ siÄ ZA sÅuchaczem (~${yCross.toFixed(2)} m od frontu)`,
+        message: `Osie krzyżują się ZA słuchaczem (~${yCross.toFixed(2)} m od frontu)`,
       }
     } else {
       return {
         status: "atListener" as const,
         crossY: yCross,
-        message: `Osie krzyÅ¼ujÄ siÄ NA sÅuchaczu (peÅny on-axis)`,
+        message: `Osie krzyżują się NA słuchaczu (pełny on-axis)`,
       }
     }
   }, [toeInAngle, leftSpeaker, rightSpeaker, listenerPos])
 
   const toeInQualityHint = useMemo(() => {
     if (toeInAngle === 0) {
-      return { type: "info" as const, message: "GÅoÅniki skierowane prosto (0Â° toe-in)" }
+      return { type: "info" as const, message: "Głośniki skierowane prosto (0° toe-in)" }
     }
     if (toeInAngle >= 10 && toeInAngle <= 25 && (toeInInfo.status === "behind" || toeInInfo.status === "atListener")) {
       return {
         type: "success" as const,
-        message: `Toe-in OK (${toeInAngle}Â°${toeInInfo.crossY ? `, osie ~${toeInInfo.crossY.toFixed(2)} m` : ""})`,
+        message: `Toe-in OK (${toeInAngle}°${toeInInfo.crossY ? `, osie ~${toeInInfo.crossY.toFixed(2)} m` : ""})`,
       }
     }
     if (toeInAngle > 30) {
-      return { type: "warning" as const, message: "Silny toe-in â moÅ¼e zawÄziÄ scenÄ dÅºwiÄkowÄ" }
+      return { type: "warning" as const, message: "Silny toe-in – może zawęzić scenę dźwiękową" }
     }
-    return { type: "info" as const, message: `Toe-in: ${toeInAngle}Â°` }
+    return { type: "info" as const, message: `Toe-in: ${toeInAngle}°` }
   }, [toeInAngle, toeInInfo])
 
   return (
@@ -868,7 +868,7 @@ export default function StereoCalculator() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="targetAngle">Target Listening Angle (Â°)</Label>
+              <Label htmlFor="targetAngle">Target Listening Angle (°)</Label>
               <Input
                 id="targetAngle"
                 type="number"
@@ -905,7 +905,7 @@ export default function StereoCalculator() {
               <div className="space-y-2">
                 <p className="text-sm font-medium flex items-center gap-2">
                   <Save className="h-4 w-4" />
-                  Zapisz bieÅ¼Äcy setup
+                  Zapisz bieżący setup
                 </p>
                 <div className="flex gap-2">
                   <Input
@@ -925,7 +925,7 @@ export default function StereoCalculator() {
                   Zapisane setupy ({savedSetups.length})
                 </p>
                 {savedSetups.length === 0 ? (
-                  <p className="text-sm text-muted-foreground py-2">Brak zapisanych setupÃ³w</p>
+                  <p className="text-sm text-muted-foreground py-2">Brak zapisanych setupów</p>
                 ) : (
                   <div className="space-y-2 max-h-48 overflow-y-auto">
                     {savedSetups.map((setup) => (
@@ -950,13 +950,13 @@ export default function StereoCalculator() {
                             onClick={() => loadSetup(setup)}
                             className="text-xs h-7 px-2"
                           >
-                            {activeSetupId === setup.id ? "Aktywny" : "ZaÅaduj"}
+                            {activeSetupId === setup.id ? "Aktywny" : "Załaduj"}
                           </Button>
                           <Button
                             variant="ghost"
                             size="sm"
                             onClick={() => deleteSetup(setup.id)}
-                            title="UsuÅ"
+                            title="Usuń"
                             className="h-7 w-7 p-0"
                           >
                             <Trash2 className="h-3.5 w-3.5" />
@@ -1048,7 +1048,7 @@ export default function StereoCalculator() {
                     <Label htmlFor="toeInAngle" className="text-sm">
                       Toe-in angle (per speaker)
                     </Label>
-                    <span className="text-sm font-medium">{toeInAngle}Â°</span>
+                    <span className="text-sm font-medium">{toeInAngle}°</span>
                   </div>
                   <Slider
                     id="toeInAngle"
@@ -1060,7 +1060,7 @@ export default function StereoCalculator() {
                     className="w-full"
                   />
                   <p className="text-xs text-muted-foreground">
-                    0Â° = prosto, 15â25Â° = typowy toe-in, 30â45Â° = silny toe-in
+                    0° = prosto, 15–25° = typowy toe-in, 30–45° = silny toe-in
                   </p>
                 </div>
                 <div className="flex items-center justify-between">
@@ -1099,7 +1099,7 @@ export default function StereoCalculator() {
               </div>
               <div className="flex items-center justify-between">
                 <Label htmlFor="showCornerDistances" className="text-sm">
-                  Rogi â Åciana frontowa
+                  Rogi → ściana frontowa
                 </Label>
                 <Switch
                   id="showCornerDistances"
@@ -1199,8 +1199,8 @@ export default function StereoCalculator() {
                   unit="m"
                   highlight={isTooCloseToBack}
                 />
-                <ResultItem label="ListenerâSpeaker Dist." value={calculations.listenerSpeakerDistance} unit="m" />
-                <ResultItem label="Actual Angle" value={calculations.actualAngle} unit="Â°" />
+                <ResultItem label="Listener–Speaker Dist." value={calculations.listenerSpeakerDistance} unit="m" />
+                <ResultItem label="Actual Angle" value={calculations.actualAngle} unit="°" />
               </div>
 
               {isTooCloseToBack ? (
@@ -1261,7 +1261,7 @@ export default function StereoCalculator() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Ruler className="h-5 w-5" />
-                  Acoustic Treatment - Pozycje montaÅ¼u
+                  Acoustic Treatment - Pozycje montażu
                 </CardTitle>
               </CardHeader>
               <CardContent>

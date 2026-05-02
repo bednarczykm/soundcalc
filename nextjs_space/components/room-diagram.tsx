@@ -592,7 +592,7 @@ export function RoomDiagram({
           fontFamily="system-ui, sans-serif"
           opacity={0.7}
         >
-          OdlegÅoÅci przednich rogÃ³w (LF/RF) od Åciany frontowej
+          Odległości przednich rogów (LF/RF) od ściany frontowej
         </text>
       </g>
     )
@@ -605,7 +605,7 @@ export function RoomDiagram({
         size="icon"
         onClick={toggleFullscreen}
         className="absolute top-2 right-2 z-10 bg-white/90 hover:bg-white shadow-sm"
-        title={isFullscreen ? "Zamknij peÅny ekran" : "PeÅny ekran"}
+        title={isFullscreen ? "Zamknij pełny ekran" : "Pełny ekran"}
       >
         {isFullscreen ? <Minimize2 className="h-4 w-4" /> : <Maximize2 className="h-4 w-4" />}
       </Button>
@@ -645,7 +645,7 @@ export function RoomDiagram({
           fontWeight="500"
           fontFamily="system-ui, sans-serif"
         >
-          Åciana frontowa
+          Ściana frontowa
         </text>
 
         <g>
@@ -704,7 +704,7 @@ export function RoomDiagram({
           fontWeight="500"
           fontFamily="system-ui, sans-serif"
         >
-          Åciana tylna
+          Ściana tylna
         </text>
 
         {/* Acoustic panels - render first so dimensions appear on top */}
@@ -1053,7 +1053,7 @@ export function RoomDiagram({
               fontFamily="system-ui, sans-serif"
               style={{ pointerEvents: "none" }}
             >
-              SÅuchacz
+              Słuchacz
             </text>
             {/* Angle label */}
             <rect
@@ -1076,7 +1076,7 @@ export function RoomDiagram({
               fontFamily="system-ui, sans-serif"
               style={{ pointerEvents: "none" }}
             >
-              {actualAngle.toFixed(1)}Â°
+              {actualAngle.toFixed(1)}°
             </text>
           </g>
         )}
@@ -1097,11 +1097,11 @@ export function RoomDiagram({
       <div className="flex flex-wrap items-center justify-center gap-6 mt-4 text-sm">
         <div className="flex items-center gap-2">
           <div className="w-4 h-5 rounded bg-[#1e293b]" />
-          <span className="text-muted-foreground">GÅoÅnik</span>
+          <span className="text-muted-foreground">Głośnik</span>
         </div>
         <div className="flex items-center gap-2">
           <div className="w-4 h-4 rounded-full bg-[#3b82f6]" />
-          <span className="text-muted-foreground">SÅuchacz</span>
+          <span className="text-muted-foreground">Słuchacz</span>
         </div>
         {toeInAngle > 0 && (
           <div className="flex items-center gap-2">
@@ -1112,7 +1112,7 @@ export function RoomDiagram({
                   "repeating-linear-gradient(90deg, #6366f1 0, #6366f1 6px, transparent 6px, transparent 10px)",
               }}
             />
-            <span className="text-muted-foreground">OÅ gÅoÅnika (toe-in)</span>
+            <span className="text-muted-foreground">Oś głośnika (toe-in)</span>
           </div>
         )}
         {/* Acoustic centre legend entries */}
@@ -1154,7 +1154,7 @@ export function RoomDiagram({
         {showCornerDistances && (
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-full bg-[#7c3aed]" />
-            <span className="text-muted-foreground">RÃ³g â Åciana frontowa</span>
+            <span className="text-muted-foreground">Róg → ściana frontowa</span>
           </div>
         )}
       </div>

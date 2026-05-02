@@ -12,12 +12,12 @@ export function CornerDistancesTable({ leftDistances, rightDistances }: CornerDi
   return (
     <div className="bg-muted/30 border border-border rounded-lg p-3 text-xs">
       <h4 className="font-semibold text-muted-foreground uppercase tracking-wide mb-2 text-[10px]">
-        Rogi â Åciana frontowa (cm)
+        Rogi → ściana frontowa (cm)
       </h4>
       <table className="w-full">
         <thead>
           <tr className="border-b border-border">
-            <th className="text-left py-1 font-medium text-muted-foreground">RÃ³g</th>
+            <th className="text-left py-1 font-medium text-muted-foreground">Róg</th>
             <th className="text-right py-1 font-medium text-muted-foreground">L</th>
             <th className="text-right py-1 font-medium text-muted-foreground">R</th>
           </tr>
@@ -44,7 +44,7 @@ export function CornerDistancesTable({ leftDistances, rightDistances }: CornerDi
             <td className="text-right py-1">{formatCm(rightDistances.RR)}</td>
           </tr>
           <tr className="text-violet-600 font-semibold">
-            <td className="py-1.5 pt-2">Î LFâRF</td>
+            <td className="py-1.5 pt-2">Δ LF↔RF</td>
             <td className="text-right py-1.5 pt-2">{formatCm(leftDelta)}</td>
             <td className="text-right py-1.5 pt-2">{formatCm(rightDelta)}</td>
           </tr>

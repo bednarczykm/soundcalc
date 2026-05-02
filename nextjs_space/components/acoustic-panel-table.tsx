@@ -14,7 +14,7 @@ export function AcousticPanelTable({ panels, roomWidth, roomLength }: AcousticPa
     if (panel.centerX === roomWidth && panel.centerY === 0) return "Prawy przedni"
     if (panel.centerX === 0 && panel.centerY === roomLength) return "Lewy tylny"
     if (panel.centerX === roomWidth && panel.centerY === roomLength) return "Prawy tylny"
-    return "RÃ³g"
+    return "Róg"
   }
 
   // Group panels by type
@@ -31,7 +31,7 @@ export function AcousticPanelTable({ panels, roomWidth, roomLength }: AcousticPa
           <CardHeader className="py-3 pb-2">
             <CardTitle className="text-base text-orange-800">Panele boczne (first reflection)</CardTitle>
             <CardDescription className="text-orange-700/80">
-              MontaÅ¼ na Åcianach bocznych w punkcie pierwszego odbicia
+              Montaż na ścianach bocznych w punkcie pierwszego odbicia
             </CardDescription>
           </CardHeader>
           <CardContent className="pt-0">
@@ -40,26 +40,26 @@ export function AcousticPanelTable({ panels, roomWidth, roomLength }: AcousticPa
                 const halfHeight = panel.width / 2
                 const startY = panel.centerY - halfHeight
                 const endY = panel.centerY + halfHeight
-                const wallName = panel.wall === "left" ? "Lewa Åciana" : "Prawa Åciana"
+                const wallName = panel.wall === "left" ? "Lewa ściana" : "Prawa ściana"
 
                 return (
                   <div key={`side-${index}`} className="bg-white rounded-lg p-3 border border-orange-200">
                     <div className="font-semibold text-orange-800 mb-2">{wallName}</div>
                     <div className="grid grid-cols-2 gap-2 text-sm">
                       <div>
-                        <span className="text-muted-foreground">Od Åciany frontowej:</span>
+                        <span className="text-muted-foreground">Od ściany frontowej:</span>
                         <span className="ml-2 font-mono font-semibold text-orange-700">
                           {startY.toFixed(2)}m - {endY.toFixed(2)}m
                         </span>
                       </div>
                       <div>
-                        <span className="text-muted-foreground">Årodek:</span>
+                        <span className="text-muted-foreground">Środek:</span>
                         <span className="ml-2 font-mono font-semibold">{panel.centerY.toFixed(2)}m</span>
                       </div>
                       <div>
                         <span className="text-muted-foreground">Rozmiar:</span>
                         <span className="ml-2 font-mono">
-                          {panel.width.toFixed(2)} Ã {panel.height.toFixed(2)}m
+                          {panel.width.toFixed(2)} × {panel.height.toFixed(2)}m
                         </span>
                       </div>
                     </div>
@@ -75,9 +75,9 @@ export function AcousticPanelTable({ panels, roomWidth, roomLength }: AcousticPa
       {frontPanels.length > 0 && (
         <Card className="border-orange-200 bg-orange-50/50">
           <CardHeader className="py-3 pb-2">
-            <CardTitle className="text-base text-orange-800">Panele frontowe (za gÅoÅnikami)</CardTitle>
+            <CardTitle className="text-base text-orange-800">Panele frontowe (za głośnikami)</CardTitle>
             <CardDescription className="text-orange-700/80">
-              MontaÅ¼ na Åcianie frontowej bezpoÅrednio za gÅoÅnikami
+              Montaż na ścianie frontowej bezpośrednio za głośnikami
             </CardDescription>
           </CardHeader>
           <CardContent className="pt-0">
@@ -86,26 +86,26 @@ export function AcousticPanelTable({ panels, roomWidth, roomLength }: AcousticPa
                 const halfWidth = panel.width / 2
                 const startX = panel.centerX - halfWidth
                 const endX = panel.centerX + halfWidth
-                const position = index === 0 ? "Za lewym gÅoÅnikiem" : "Za prawym gÅoÅnikiem"
+                const position = index === 0 ? "Za lewym głośnikiem" : "Za prawym głośnikiem"
 
                 return (
                   <div key={`front-${index}`} className="bg-white rounded-lg p-3 border border-orange-200">
                     <div className="font-semibold text-orange-800 mb-2">{position}</div>
                     <div className="grid grid-cols-2 gap-2 text-sm">
                       <div>
-                        <span className="text-muted-foreground">Od lewej Åciany:</span>
+                        <span className="text-muted-foreground">Od lewej ściany:</span>
                         <span className="ml-2 font-mono font-semibold text-orange-700">
                           {startX.toFixed(2)}m - {endX.toFixed(2)}m
                         </span>
                       </div>
                       <div>
-                        <span className="text-muted-foreground">Årodek:</span>
+                        <span className="text-muted-foreground">Środek:</span>
                         <span className="ml-2 font-mono font-semibold">{panel.centerX.toFixed(2)}m</span>
                       </div>
                       <div>
                         <span className="text-muted-foreground">Rozmiar:</span>
                         <span className="ml-2 font-mono">
-                          {panel.width.toFixed(2)} Ã {panel.height.toFixed(2)}m
+                          {panel.width.toFixed(2)} × {panel.height.toFixed(2)}m
                         </span>
                       </div>
                     </div>
@@ -121,9 +121,9 @@ export function AcousticPanelTable({ panels, roomWidth, roomLength }: AcousticPa
       {backPanels.length > 0 && (
         <Card className="border-orange-200 bg-orange-50/50">
           <CardHeader className="py-3 pb-2">
-            <CardTitle className="text-base text-orange-800">Panel tylny (za sÅuchaczem)</CardTitle>
+            <CardTitle className="text-base text-orange-800">Panel tylny (za słuchaczem)</CardTitle>
             <CardDescription className="text-orange-700/80">
-              MontaÅ¼ na Åcianie tylnej za pozycjÄ odsÅuchowÄ
+              Montaż na ścianie tylnej za pozycją odsłuchową
             </CardDescription>
           </CardHeader>
           <CardContent className="pt-0">
@@ -135,22 +135,22 @@ export function AcousticPanelTable({ panels, roomWidth, roomLength }: AcousticPa
 
                 return (
                   <div key={`back-${index}`} className="bg-white rounded-lg p-3 border border-orange-200">
-                    <div className="font-semibold text-orange-800 mb-2">Za sÅuchaczem</div>
+                    <div className="font-semibold text-orange-800 mb-2">Za słuchaczem</div>
                     <div className="grid grid-cols-2 gap-2 text-sm">
                       <div>
-                        <span className="text-muted-foreground">Od lewej Åciany:</span>
+                        <span className="text-muted-foreground">Od lewej ściany:</span>
                         <span className="ml-2 font-mono font-semibold text-orange-700">
                           {startX.toFixed(2)}m - {endX.toFixed(2)}m
                         </span>
                       </div>
                       <div>
-                        <span className="text-muted-foreground">Årodek:</span>
+                        <span className="text-muted-foreground">Środek:</span>
                         <span className="ml-2 font-mono font-semibold">{panel.centerX.toFixed(2)}m</span>
                       </div>
                       <div>
                         <span className="text-muted-foreground">Rozmiar:</span>
                         <span className="ml-2 font-mono">
-                          {panel.width.toFixed(2)} Ã {panel.height.toFixed(2)}m
+                          {panel.width.toFixed(2)} × {panel.height.toFixed(2)}m
                         </span>
                       </div>
                     </div>
@@ -166,9 +166,9 @@ export function AcousticPanelTable({ panels, roomWidth, roomLength }: AcousticPa
       {bassTraps.length > 0 && (
         <Card className="border-purple-200 bg-purple-50/50">
           <CardHeader className="py-3 pb-2">
-            <CardTitle className="text-base text-purple-800">Bass trapy (naroÅ¼niki)</CardTitle>
+            <CardTitle className="text-base text-purple-800">Bass trapy (narożniki)</CardTitle>
             <CardDescription className="text-purple-700/80">
-              MontaÅ¼ w rogach pokoju dla absorpcji niskich czÄstotliwoÅci
+              Montaż w rogach pokoju dla absorpcji niskich częstotliwości
             </CardDescription>
           </CardHeader>
           <CardContent className="pt-0">
