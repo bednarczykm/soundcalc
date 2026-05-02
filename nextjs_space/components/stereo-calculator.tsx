@@ -173,11 +173,28 @@ export default function StereoCalculator() {
   )
 
   // Handler for updating speaker distance from side wall (numeric input)
-  const handleSideWallDistanceChange = (value: number) => {
-    // Reject out-of-range values silently — user may still be typing.
+  // Local state for side wall input text (mirrors front wall pattern)
+  const [sideWallInputText, setSideWallInputText] = useState(sideWallDistance.toFixed(2))
+  const [isEditingSideWall, setIsEditingSideWall] = useState(false)
+
+  useEffect(() => {
+    if (!isEditingSideWall) {
+      setSideWallInputText(sideWallDistance.toFixed(2))
+    }
+  }, [sideWallDistance, isEditingSideWall])
+
+  const handleSideWallDistanceChange = (inputValue: string) => {
+    setSideWallInputText(inputValue)
+
+    const normalizedValue = inputValue.replace(",", ".")
+    const value = Number.parseFloat(normalizedValue)
+
+    if (isNaN(value)) return
+
     const minSide = 0.1
     const maxSide = roomWidth / 2 - 0.1
     if (value < minSide || value > maxSide) return
+
     setLeftSpeaker((prev) => ({ ...prev, x: value }))
     if (lockSymmetry) {
       setRightSpeaker((prev) => ({ ...prev, x: roomWidth - value }))
@@ -861,13 +878,14 @@ export default function StereoCalculator() {
               <Label htmlFor="sideWall">Odległość głośnika od ściany bocznej (m)</Label>
               <Input
                 id="sideWall"
-                type="number"
-                step="0.01"
-                value={sideWallDistance.toFixed(2)}
+                type="text"
+                inputMode="decimal"
+                value={sideWallInputText}
                 onChange={(e) => {
-                  const v = Number.parseFloat(e.target.value)
-                  if (!isNaN(v)) handleSideWallDistanceChange(v)
+                  setIsEditingSideWall(true)
+                  handleSideWallDistanceChange(e.target.value)
                 }}
+                onBlur={() => setIsEditingSideWall(false)}
               />
               <p className="text-xs text-muted-foreground">Odległość od ściany bocznej do środka głośnika</p>
             </div>
