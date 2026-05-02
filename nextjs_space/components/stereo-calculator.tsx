@@ -174,14 +174,17 @@ export default function StereoCalculator() {
 
   // Handler for updating speaker distance from side wall (numeric input)
   const handleSideWallDistanceChange = (value: number) => {
-    const clampedValue = Math.max(0.1, Math.min(value, roomWidth / 2 - 0.1))
-    setLeftSpeaker((prev) => ({ ...prev, x: clampedValue }))
+    // Reject out-of-range values silently — user may still be typing.
+    const minSide = 0.1
+    const maxSide = roomWidth / 2 - 0.1
+    if (value < minSide || value > maxSide) return
+    setLeftSpeaker((prev) => ({ ...prev, x: value }))
     if (lockSymmetry) {
-      setRightSpeaker((prev) => ({ ...prev, x: roomWidth - clampedValue }))
+      setRightSpeaker((prev) => ({ ...prev, x: roomWidth - value }))
     }
 
     if (lockListeningAngle) {
-      const newSpacing = roomWidth - 2 * clampedValue
+      const newSpacing = roomWidth - 2 * value
       const newListener = calculateListenerForAngle(newSpacing, leftSpeaker.y, targetAngle, roomWidth)
       if (newListener.y > 0 && newListener.y < roomLength) {
         setListenerPos(newListener)
@@ -211,9 +214,10 @@ export default function StereoCalculator() {
 
     const minFront = 0.05 // front baffle at least 5cm from wall
     const maxFront = roomLength - speakerDepth - 0.5
-    const frontDist = Math.max(minFront, Math.min(value, maxFront))
+    // Reject out-of-range values silently — user may still be typing.
+    if (value < minFront || value > maxFront) return
 
-    const centerY = frontDist - speakerDepth / 2
+    const centerY = value - speakerDepth / 2
 
     setLeftSpeaker((prev) => ({ ...prev, y: centerY }))
     setRightSpeaker((prev) => ({ ...prev, y: centerY }))
@@ -442,34 +446,36 @@ export default function StereoCalculator() {
   const isSpeakerTooCloseToWall = calculations.leftEdgeToWall < 0.2 || calculations.rightEdgeToWall < 0.2
 
   const handleRoomWidthChange = (value: number) => {
-    const clampedValue = Math.max(1.0, Math.min(value, 20.0))
-    setRoomWidth(clampedValue)
+    // Reject out-of-range values silently — user may still be typing.
+    if (value < 1.0 || value > 20.0) return
+    setRoomWidth(value)
 
     // Adjust positions if they're now outside the room
-    if (leftSpeaker.x > clampedValue / 2) {
-      setLeftSpeaker((prev) => ({ ...prev, x: clampedValue * 0.2 }))
+    if (leftSpeaker.x > value / 2) {
+      setLeftSpeaker((prev) => ({ ...prev, x: value * 0.2 }))
     }
-    if (rightSpeaker.x > clampedValue) {
-      setRightSpeaker((prev) => ({ ...prev, x: clampedValue * 0.8 }))
+    if (rightSpeaker.x > value) {
+      setRightSpeaker((prev) => ({ ...prev, x: value * 0.8 }))
     }
-    if (listenerPos.x > clampedValue) {
-      setListenerPos((prev) => ({ ...prev, x: clampedValue / 2 }))
+    if (listenerPos.x > value) {
+      setListenerPos((prev) => ({ ...prev, x: value / 2 }))
     }
   }
 
   const handleRoomLengthChange = (value: number) => {
-    const clampedValue = Math.max(1.0, Math.min(value, 20.0))
-    setRoomLength(clampedValue)
+    // Reject out-of-range values silently — user may still be typing.
+    if (value < 1.0 || value > 20.0) return
+    setRoomLength(value)
 
     // Adjust positions if they're now outside the room
-    if (leftSpeaker.y > clampedValue) {
-      setLeftSpeaker((prev) => ({ ...prev, y: clampedValue * 0.2 }))
+    if (leftSpeaker.y > value) {
+      setLeftSpeaker((prev) => ({ ...prev, y: value * 0.2 }))
     }
-    if (rightSpeaker.y > clampedValue) {
-      setRightSpeaker((prev) => ({ ...prev, y: clampedValue * 0.2 }))
+    if (rightSpeaker.y > value) {
+      setRightSpeaker((prev) => ({ ...prev, y: value * 0.2 }))
     }
-    if (listenerPos.y > clampedValue) {
-      setListenerPos((prev) => ({ ...prev, y: clampedValue * 0.6 }))
+    if (listenerPos.y > value) {
+      setListenerPos((prev) => ({ ...prev, y: value * 0.6 }))
     }
   }
 
@@ -797,7 +803,10 @@ export default function StereoCalculator() {
                   min="1"
                   max="20"
                   value={roomWidth}
-                  onChange={(e) => handleRoomWidthChange(Number.parseFloat(e.target.value) || 3.8)}
+                  onChange={(e) => {
+                    const v = Number.parseFloat(e.target.value)
+                    if (!isNaN(v)) handleRoomWidthChange(v)
+                  }}
                 />
               </div>
               <div className="space-y-2">
@@ -809,7 +818,10 @@ export default function StereoCalculator() {
                   min="1"
                   max="20"
                   value={roomLength}
-                  onChange={(e) => handleRoomLengthChange(Number.parseFloat(e.target.value) || 4.2)}
+                  onChange={(e) => {
+                    const v = Number.parseFloat(e.target.value)
+                    if (!isNaN(v)) handleRoomLengthChange(v)
+                  }}
                 />
               </div>
             </div>
@@ -823,7 +835,10 @@ export default function StereoCalculator() {
                   type="number"
                   step="0.01"
                   value={speakerWidth}
-                  onChange={(e) => setSpeakerWidth(Number.parseFloat(e.target.value) || 0)}
+                  onChange={(e) => {
+                    const v = Number.parseFloat(e.target.value)
+                    if (!isNaN(v) && v > 0) setSpeakerWidth(v)
+                  }}
                 />
               </div>
               <div className="space-y-2">
@@ -833,7 +848,10 @@ export default function StereoCalculator() {
                   type="number"
                   step="0.01"
                   value={speakerDepth}
-                  onChange={(e) => setSpeakerDepth(Number.parseFloat(e.target.value) || 0)}
+                  onChange={(e) => {
+                    const v = Number.parseFloat(e.target.value)
+                    if (!isNaN(v) && v > 0) setSpeakerDepth(v)
+                  }}
                 />
               </div>
             </div>
@@ -846,7 +864,10 @@ export default function StereoCalculator() {
                 type="number"
                 step="0.01"
                 value={sideWallDistance.toFixed(2)}
-                onChange={(e) => handleSideWallDistanceChange(Number.parseFloat(e.target.value) || 0)}
+                onChange={(e) => {
+                  const v = Number.parseFloat(e.target.value)
+                  if (!isNaN(v)) handleSideWallDistanceChange(v)
+                }}
               />
               <p className="text-xs text-muted-foreground">Odległość od ściany bocznej do środka głośnika</p>
             </div>
@@ -875,7 +896,8 @@ export default function StereoCalculator() {
                 step="1"
                 value={targetAngle}
                 onChange={(e) => {
-                  const newAngle = Number.parseFloat(e.target.value) || 60
+                  const newAngle = Number.parseFloat(e.target.value)
+                  if (isNaN(newAngle)) return
                   setTargetAngle(newAngle)
                   if (lockListeningAngle) {
                     const spacing = rightSpeaker.x - leftSpeaker.x
@@ -895,7 +917,10 @@ export default function StereoCalculator() {
                 type="number"
                 step="0.01"
                 value={minBackWallDistance}
-                onChange={(e) => setMinBackWallDistance(Number.parseFloat(e.target.value) || 0)}
+                onChange={(e) => {
+                  const v = Number.parseFloat(e.target.value)
+                  if (!isNaN(v)) setMinBackWallDistance(v)
+                }}
               />
             </div>
 
@@ -1190,8 +1215,8 @@ export default function StereoCalculator() {
             </CardHeader>
             <CardContent className="space-y-3">
               <div className="grid gap-3 sm:grid-cols-2">
-                <ResultItem label="Rozstaw głośników (C-C)" value={calculations.speakerSpacing} unit="m" />
-                <ResultItem label="Rozstaw głośników (krawędź)" value={calculations.speakerEdgeToEdge} unit="m" />
+                <ResultItem label="Rozstaw głośników (środek–środek)" value={calculations.speakerSpacing} unit="m" />
+                <ResultItem label="Rozstaw głośników (krawędź–krawędź)" value={calculations.speakerEdgeToEdge} unit="m" />
                 <ResultItem label="Słuchacz od frontu" value={calculations.listenerFromFront} unit="m" />
                 <ResultItem
                   label="Słuchacz od tyłu"
@@ -1261,7 +1286,7 @@ export default function StereoCalculator() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Ruler className="h-5 w-5" />
-                  Acoustic Treatment - Pozycje montażu
+                  Adaptacja akustyczna — Pozycje montażu
                 </CardTitle>
               </CardHeader>
               <CardContent>
